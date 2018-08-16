@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import VideoListContainer from '../containers/VideoListContainer.js';
 import VideoPlayerContainer from '../containers/VideoPlayerContainer.js';
 import Nav from './Nav.js';
@@ -8,15 +9,26 @@ import changeVideo from '../actions/currentVideo.js';
 import changeVideoList from '../actions/videoList.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import store from '../store/store.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
+import searchYouTube from '../lib/searchYouTube.js';
 // import SearchContainer from '../containers/SearchContainer.js';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
   }
+  
+  
 
-  componentDidMount() {
-    this.getYouTubeVideos('react tutorials');
+  componentWillMount() {
+    var options = {key: YOUTUBE_API_KEY, query: 'ello'};
+    searchYouTube(options, (videos) => {
+      store.dispatch(changeVideo(videos[0]));
+      store.dispatch(changeVideoList(videos));
+    });
+    // store.dispatch(changeVideo(exampleVideoData[0]));
+    // store.dispatch(changeVideoList(exampleVideoData));
+    
   }
   
   
@@ -31,13 +43,13 @@ export default class App extends React.Component {
   //     query: query
   //   };
 
-  //   this.props.searchYouTube(options, (videos) =>
-  //     this.setState({
-  //       videos: videos,
-  //       currentVideo: videos[0]
-  //     })
+  //   this.props.searchYouTube(options, (videos) => {    
+  //     dispatch(changeVideoList(videos));
+  //     dispatch(changeVideo(videos[0]));
+  //   }
   //   );
   // }
+
 
   //TODO: swap out the React components below for the container components
   //  you wrote in the 'containers' directory.

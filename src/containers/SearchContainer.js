@@ -3,10 +3,10 @@ import Search from './../components/Search.js';
 import { connect } from 'react-redux';
 import handleSearchChange from '../actions/search.js';
 
-var SearchContainer = () => {
+var SearchContainer = (props) => {
   return (
     <div>
-      <Search />
+      <Search value={props.value} handleSearchInputChange={props.handleSearchInputChange}/>
     </div>
   );
 };
