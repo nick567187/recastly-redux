@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 import currentVideo from './currentVideo.js';
 import videoList from './videoList.js';
-
+import chatContent from './chatContent.js';
 
 var rootReducer = combineReducers({
   currentVideo,  
-  videoList
+  videoList,
+  chatContent
 });
   
 //TODO: define the root reducer for this app
